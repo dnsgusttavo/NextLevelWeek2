@@ -1,0 +1,38 @@
+#nf-container{
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-text-in-primary);
+    background: var(--color-primary);
+}
+
+#nf-container #wrn{
+    background: var(--color-box-base);
+}
+
+#nf-container img{
+    margin: 4rem 0;
+    max-width: 90vw;
+}
+
+#nf-container #back{
+    text-align: center;
+    padding: 2rem;
+    border-radius: 0.8rem;
+    font: 700 1.8rem Archivo;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--color-button-text);
+    background: var(--color-secundary);
+    transition: background-color 0.2s;
+}
+
+#nf-container #back:hover{
+    background: var(--color-secundary-dark);
+}
