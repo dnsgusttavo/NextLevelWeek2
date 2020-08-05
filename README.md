@@ -25,7 +25,7 @@ An awesome study platform who connect teachers and students, made using stack js
 ### Web (front-end)
 ``` 
 # Open web folder
-$ /web`
+$ /web
 
 # Install dependencies
 $ yarn install
@@ -37,7 +37,7 @@ $ yarn start
 ### API (back-end)
 ``` 
 # Open server folder
-$ /server`
+$ /server
 
 # Install dependencies
 $ yarn install
@@ -49,7 +49,7 @@ $ yarn start
 ### Mobile
 ``` 
 # Open mobile folder
-$ /mobile`
+$ /mobile
 
 # Install dependencies
 $ yarn install
