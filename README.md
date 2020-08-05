@@ -55,5 +55,5 @@ $ /mobile
 $ yarn install
 
 # Run Project
-$ yarn start
+$ react-native run android OR react-native run ios
 ```
