@@ -7,7 +7,7 @@
 
 An awesome study platform who connect teachers and students, made using stack js!
 ## 🖥 Screenshots (MOBILE)
-<div style="display: flex; align-items: center; justify-content: space-evenly;">
+<div align="center"">
     <img src="/promo/mobile/0.png" width="200px"/>
     <img src="/promo/mobile/1.png" width="200px"/>
     <img src="/promo/mobile/2.png" width="200px"/>
