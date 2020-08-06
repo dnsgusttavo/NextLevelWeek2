@@ -2,32 +2,47 @@ import React from 'react';
 import whatsappIcon from '../../assets/images/icons/whatsapp.svg';
 
 import './styles.css';
-const TeacherItem = () => {
+import api from '../../services/api';
+
+export interface Teacher {
+        avatar: string;
+        bio: string;
+        cost: number;
+        id: number;
+        name: string;
+        subject: string;
+        whatsapp: string
+}
+interface TeacherItemProps{
+    teacher: Teacher;
+}
+const TeacherItem: React.FC<TeacherItemProps> = ({teacher}) => {
+
+    const createNewConnection = () => {
+        api.post('connections', { user_id: teacher.id});
+    }
+
     return(
         <article className="teacher-item">
                     <header>
-                        <img src="https://media-exp1.licdn.com/dms/image/C4D03AQG01jVs29T8xA/profile-displayphoto-shrink_400_400/0?e=1602115200&v=beta&t=fMRGoKuOC2aZr8HMzyYczwQsEwVMQ4PQoF-1QMiu-J4" alt="Foto de perfil"/>
+                        <img src={teacher.avatar} alt="Foto de perfil"/>
                         <div>
-                            <strong>Gustavo Maltez</strong>
-                            <span>Desenvolvimento de Aplicativos</span>
+                            <strong>{teacher.name}</strong>
+                            <span>{teacher.subject}</span>
                         </div>
                     </header>
 
-                    <p>
-                        Estudante de Engenharia de Software na UFC
-                        <br/><br/>
-                        Apaixonado por tecnologia e programação. Estudando a stack Javascript e desenvolvendo aplicações incríveis!
-                    </p>
+                    <p>{teacher.bio}</p>
 
                     <footer>
                         <p>Preço/hora
-                            <strong>R$ 80,00</strong>
+                            <strong>R$ {teacher.cost}</strong>
                         </p>
 
-                        <button type="button">
+                        <a onClick={createNewConnection} href={`https://wa.me/${teacher.whatsapp}`} target="_blank" type="button">
                             <img src={whatsappIcon} alt="Whatsapp"/>
                             Entrar em contato
-                        </button>
+                        </a>
                     </footer>
                     
         </article>
