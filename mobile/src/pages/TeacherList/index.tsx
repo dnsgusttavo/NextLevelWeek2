@@ -1,20 +1,40 @@
 import React, {useState} from 'react'
 import { StyleSheet, Text, View, TextInput, ScrollView } from 'react-native'
 import PageHeader from '../../components/PageHeader'
+import { useFocusEffect} from '@react-navigation/native'
 import TeacherItem, {Teacher} from '../../components/TeacherItem';
 import { BorderlessButton, RectButton } from 'react-native-gesture-handler'
 
 import { Feather } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-community/async-storage';
 import api from '../../services/api'
 
 const TeacherList = () => {
 
+    const [favorites, setFavorites] = useState<number[]>([]);
     const [teachers, setTeachers] = useState([]);
     const [subject, setSubject] = useState('');
     const [week_day, setWeekDay] = useState('');
     const [time, setTime] = useState('');
 
     const [isFiltersVisible, setIsFiltersVisible] = useState(false);
+
+    const loadFavorites = () => {
+        AsyncStorage.getItem('favorites').then(response => {
+            if(response) {
+              const favoritedTeachers = JSON.parse(response) 
+              const favoritedTeachersIds = favoritedTeachers.map((teacher: Teacher) => teacher.id)
+              setFavorites(favoritedTeachersIds)
+            }
+           
+          })
+    }
+
+    useFocusEffect(
+        React.useCallback(() => {
+          loadFavorites();
+        }, [])
+      )
 
     const handleFiltersSubmit = async () => {
         const res = await api.get('classes', {
@@ -26,6 +46,7 @@ const TeacherList = () => {
         })
         setTeachers(res.data);
         setIsFiltersVisible(false);
+        loadFavorites();
     }
 
     return (
@@ -55,7 +76,7 @@ const TeacherList = () => {
                                     value={time} onChangeText={text => setTime(text)}/>
                                 </View>
                             </View>
-                            <RectButton style={styles.submitButton} onPress={handleFiltersSubmit}>
+                            <RectButton style={styles.submitButton} onPress={() => {handleFiltersSubmit()}}>
                                     <Text style={styles.submitButtonText}>Buscar</Text>
                             </RectButton>
                         </View>
@@ -69,7 +90,7 @@ const TeacherList = () => {
                 paddingBottom:16}
             }>  
                 {teachers.map((teacher: Teacher) => {
-                   return <TeacherItem key={teacher.id} teacher={teacher}/>;
+                   return <TeacherItem key={teacher.id} teacher={teacher} favorited={favorites.includes(teacher.id)}/>;
                })}
                 
             </ScrollView>
