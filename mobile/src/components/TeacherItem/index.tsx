@@ -6,26 +6,44 @@ import unfavoriteIcon from '../../assets/images/icons/unfavorite.png';
 import whatsappIcon from '../../assets/images/icons/whatsapp.png';
 
 import { RectButton } from 'react-native-gesture-handler';
+import api from '../../services/api';
 
-const TeacherItem = () => {
+export interface Teacher {
+    avatar: string;
+    bio: string;
+    cost: number;
+    id: number;
+    name: string;
+    subject: string;
+    whatsapp: string
+}
+
+interface TeacherItemProps{
+    teacher: Teacher;
+}
+
+const TeacherItem: React.FC<TeacherItemProps> = ({teacher}) => {
+    
+    const createNewConnection = () => {
+        api.post('connections', { user_id: teacher.id});
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.profile}>
-                <Image style={styles.avatar} source={{uri: 'https://github.com/dnsgusttavo.png'}}/>
+                <Image style={styles.avatar} source={{uri: `${teacher.avatar}`}}/>
 
                 <View style={styles.profileInfo}>
-                    <Text style={styles.name}>Gustavo Maltez</Text>
-                    <Text style={styles.subject}>Matemática</Text>
+                    <Text style={styles.name}>{teacher.name}</Text>
+                    <Text style={styles.subject}>{teacher.subject}</Text>
                 </View>
             </View>
 
-            <Text style={styles.bio}>
-            A expressão Lorem ipsum em design gráfico e editoração é um texto padrão em latim utilizado na produção gráfica para preencher os espaços de texto em publicações para testar e ajustar aspectos visuais antes de utilizar conteúdo real.  
-            </Text>
+            <Text style={styles.bio}>{teacher.bio}</Text>
 
             <View style={styles.footer}>
                 <Text style={styles.price}>
-                    Preço/hora {'  '} <Text style={styles.priceValue}>R$ 90,00</Text>
+                    Preço/hora {'  '} <Text style={styles.priceValue}>R$ {teacher.cost}</Text>
                 </Text>
                 <View style={styles.buttonsContainer}>
                     <RectButton style={[styles.favoriteButton, styles.favorited]}>
