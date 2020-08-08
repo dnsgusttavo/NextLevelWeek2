@@ -1,10 +1,12 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import PageHeader from '../../components/PageHeader'
+
 
 const TeacherList = () => {
     return (
         <View style={styles.container}>
-            <Text>TeacherList</Text>
+            <PageHeader title="Proffys disponíveis"/>
         </View>
     )
 }
